@@ -1,11 +1,13 @@
 package com.benbenlaw.infinitystorage.block.custom;
 
+import com.benbenlaw.core.block.SyncableBlock;
 import com.benbenlaw.infinitystorage.block.ISBlockEntities;
 import com.benbenlaw.infinitystorage.block.entity.InfinityStorageDriveBlockEntity;
 import com.benbenlaw.infinitystorage.screen.InfinityStorageDriveMenu;
 import com.benbenlaw.infinitystorage.screen.InfinityStorageDriveScreen;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -20,97 +22,49 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
-public class InfinityStorageDriveBlock extends BaseEntityBlock {
+public class InfinityStorageDriveBlock extends SyncableBlock {
 
     public static final MapCodec<InfinityStorageDriveBlock> CODEC = simpleCodec(InfinityStorageDriveBlock::new);
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
-    public InfinityStorageDriveBlock(Properties properties) {
+    public @NonNull MapCodec<InfinityStorageDriveBlock> codec() {
+        return CODEC;
+    }
+
+    public InfinityStorageDriveBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
-
-    /* ROTATION */
-    @Override
-    public @NotNull BlockState rotate(BlockState blockState, @NotNull LevelAccessor level, @NotNull BlockPos blockPos, Rotation direction) {
-        return blockState.setValue(FACING, direction.rotate(blockState.getValue(FACING)));
-
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
-    }
-
-
-    /* BLOCK ENTITY */
-    @SuppressWarnings("deprecation")
-    @Override
-    public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
-        return RenderShape.MODEL;
-    }
-
-
-    @Override
-    public void onRemove(BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newBlockState, boolean isMoving) {
-        if (blockState.getBlock() != newBlockState.getBlock()) {
-            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-            if (blockEntity instanceof InfinityStorageDriveBlockEntity) {
-                ((InfinityStorageDriveBlockEntity) blockEntity).drops();
-            }
-        }
-        super.onRemove(blockState, level, blockPos, newBlockState, isMoving);
-    }
-
-    @Override
-    public @NotNull InteractionResult useWithoutItem(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull BlockHitResult hit) {
-
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
-
+    protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult) {
         if (!level.isClientSide()) {
-            InfinityStorageDriveBlockEntity blockEntity = (InfinityStorageDriveBlockEntity) level.getBlockEntity(blockPos);
-
-            //Open the menu
-            if (blockEntity instanceof InfinityStorageDriveBlockEntity) {
-                player.openMenu(new SimpleMenuProvider(
-                        (windowId, playerInventory, playerEntity) -> new InfinityStorageDriveMenu(windowId, playerInventory, blockPos),
-                        Component.translatable("block.infinitystorage.infinity_storage_drive")), (buf -> buf.writeBlockPos(blockPos)));
+            BlockEntity entity = level.getBlockEntity(pos);
+            if (entity instanceof InfinityStorageDriveBlockEntity entity1) {
+                player.openMenu(new SimpleMenuProvider(entity1, entity1.getDisplayName()), pos);
+            } else {
+                throw new IllegalStateException("Our Container provider is missing!");
             }
-            return InteractionResult.SUCCESS;
-
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.SUCCESS;
     }
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        return new InfinityStorageDriveBlockEntity(blockPos, blockState);
+    public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+        return new InfinityStorageDriveBlockEntity(pos, state);
     }
 
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, ISBlockEntities.INFINITY_STORAGE_DRIVE_BLOCK_ENTITY.get(),
-                (world, blockPos, thisBlockState, blockEntity) -> blockEntity.tick());
+                (thisLevel, thisPos, thisState, thisEntity) -> thisEntity.tick());
     }
 }

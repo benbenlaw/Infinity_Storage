@@ -15,27 +15,13 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class ISBlockEntities {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, InfinityStorage.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, InfinityStorage.MOD_ID);
+
+    public static final Supplier<BlockEntityType<InfinityStorageDriveBlockEntity>> INFINITY_STORAGE_DRIVE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("infinity_storage_drive_block_entity", () ->
+                    new BlockEntityType<>(InfinityStorageDriveBlockEntity::new, ISBlocks.INFINITY_STORAGE_DRIVE.get()));
 
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<InfinityStorageDriveBlockEntity>> INFINITY_STORAGE_DRIVE_BLOCK_ENTITY =
-            register("crafter_block_entity", () ->
-                    BlockEntityType.Builder.of(InfinityStorageDriveBlockEntity::new, ISBlocks.INFINITY_STORAGE_DRIVE.get()));
 
-
-    public static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> register(@Nonnull String name, @Nonnull Supplier<BlockEntityType.Builder<T>> initializer) {
-        return BLOCK_ENTITIES.register(name, () -> initializer.get().build(null));
-    }
-
-    public static void registerCapabilities(@Nonnull RegisterCapabilitiesEvent event) {
-
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ISBlockEntities.INFINITY_STORAGE_DRIVE_BLOCK_ENTITY.get(), InfinityStorageDriveBlockEntity::getItemHandlerCapability);
-
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                ISBlockEntities.INFINITY_STORAGE_DRIVE_BLOCK_ENTITY.get(), InfinityStorageDriveBlockEntity::getFluidHandlerCapability);
-
-    }
 
 }

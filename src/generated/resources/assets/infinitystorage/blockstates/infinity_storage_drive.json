@@ -1,0 +1,48 @@
+{
+  "variants": {
+    "facing=down,running=false": {
+      "model": "infinitystorage:block/infinity_storage_drive_vertical",
+      "x": 180
+    },
+    "facing=down,running=true": {
+      "model": "infinitystorage:block/infinity_storage_drive_working_vertical",
+      "x": 180
+    },
+    "facing=east,running=false": {
+      "model": "infinitystorage:block/infinity_storage_drive",
+      "y": 90
+    },
+    "facing=east,running=true": {
+      "model": "infinitystorage:block/infinity_storage_drive_working",
+      "y": 90
+    },
+    "facing=north,running=false": {
+      "model": "infinitystorage:block/infinity_storage_drive"
+    },
+    "facing=north,running=true": {
+      "model": "infinitystorage:block/infinity_storage_drive_working"
+    },
+    "facing=south,running=false": {
+      "model": "infinitystorage:block/infinity_storage_drive",
+      "y": 180
+    },
+    "facing=south,running=true": {
+      "model": "infinitystorage:block/infinity_storage_drive_working",
+      "y": 180
+    },
+    "facing=up,running=false": {
+      "model": "infinitystorage:block/infinity_storage_drive_vertical"
+    },
+    "facing=up,running=true": {
+      "model": "infinitystorage:block/infinity_storage_drive_working_vertical"
+    },
+    "facing=west,running=false": {
+      "model": "infinitystorage:block/infinity_storage_drive",
+      "y": 270
+    },
+    "facing=west,running=true": {
+      "model": "infinitystorage:block/infinity_storage_drive_working",
+      "y": 270
+    }
+  }
+}

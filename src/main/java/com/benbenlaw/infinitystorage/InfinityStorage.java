@@ -6,6 +6,7 @@ import com.benbenlaw.infinitystorage.item.ISCreativeTab;
 import com.benbenlaw.infinitystorage.item.ISItems;
 import com.benbenlaw.infinitystorage.screen.ISMenuTypes;
 import com.benbenlaw.infinitystorage.screen.InfinityStorageDriveScreen;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -40,6 +41,11 @@ public class InfinityStorage {
         }
     }
 
+    public static Identifier identifier(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+    }
+
+
     public void registerCapabilities(RegisterCapabilitiesEvent event) {
-        ISBlockEntities.registerCapabilities(event);
+        //ISBlockEntities.registerCapabilities(event);
     }}

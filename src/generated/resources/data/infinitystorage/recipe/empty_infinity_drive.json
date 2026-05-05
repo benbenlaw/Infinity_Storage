@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "infinity_storage",
+  "key": {
+    "A": "#c:ingots/netherite",
+    "B": "minecraft:nether_star"
+  },
+  "pattern": [
+    "AAA",
+    "B B",
+    "AAA"
+  ],
+  "result": {
+    "id": "infinitystorage:empty_infinity_drive"
+  }
+}

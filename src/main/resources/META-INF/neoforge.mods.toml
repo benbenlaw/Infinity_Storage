@@ -23,3 +23,10 @@ type="required"
 versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies."${mod_id}"]]
+modId="bblcore"
+type="required"
+versionRange="26.1.2-12.5.5"
+ordering="NONE"
+side="BOTH"

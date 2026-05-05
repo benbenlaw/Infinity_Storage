@@ -1,40 +1,44 @@
 package com.benbenlaw.infinitystorage.item;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class InfinityContent {
 
-    private final ItemStack infinityStack;
-    private final FluidStack fluidStack;
+    private final ItemStackTemplate infinityStack;
+    private final FluidStackTemplate fluidStack;
 
-    public InfinityContent(ItemStack infinityStack, FluidStack fluidStack) {
-        this.infinityStack = infinityStack == null ? ItemStack.EMPTY : infinityStack;
-        this.fluidStack = fluidStack == null ? FluidStack.EMPTY : fluidStack;
+    public InfinityContent(ItemStackTemplate infinityStack, FluidStackTemplate fluidStack) {
+        this.infinityStack = infinityStack;
+        this.fluidStack = fluidStack;
     }
 
-    public static InfinityContent of (ItemStack stack) {
-        return new InfinityContent(stack, FluidStack.EMPTY);
+    public static InfinityContent of (ItemStackTemplate stack) {
+        return new InfinityContent(stack, null);
     }
 
-    public static InfinityContent of (FluidStack stack) {
-        return new InfinityContent(ItemStack.EMPTY, stack);
+    public static InfinityContent of (FluidStackTemplate stack) {
+        return new InfinityContent(null, stack);
     }
 
     public boolean isItem() {
-        return infinityStack != null && !infinityStack.isEmpty();
+        return infinityStack != null && fluidStack == null;
     }
 
     public boolean isFluid() {
-        return fluidStack != null && !fluidStack.isEmpty();
+        return fluidStack != null && infinityStack == null;
     }
 
 
     public ItemStack getInfinityStack() {
-        return infinityStack;
+        return infinityStack.create();
     }
 
     public FluidStack getInfinityFluidStack() {
-        return fluidStack;
+        return fluidStack.create();
     }
 }

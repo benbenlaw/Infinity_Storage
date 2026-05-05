@@ -14,7 +14,7 @@ public class ISCreativeTab {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, InfinityStorage.MOD_ID);
 
-    public static final Supplier<CreativeModeTab> CASTING_TAB = CREATIVE_MODE_TABS.register("casting", () -> CreativeModeTab.builder()
+    public static final Supplier<CreativeModeTab> IS_TAB = CREATIVE_MODE_TABS.register("infinity_storage_tab", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ISBlocks.INFINITY_STORAGE_DRIVE.get().asItem().getDefaultInstance())
             .title(Component.translatable("itemGroup.infinitystorage"))

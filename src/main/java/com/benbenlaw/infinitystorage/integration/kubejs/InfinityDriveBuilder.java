@@ -2,12 +2,10 @@ package com.benbenlaw.infinitystorage.integration.kubejs;
 
 import com.benbenlaw.infinitystorage.item.InfinityContent;
 import com.benbenlaw.infinitystorage.item.InfinityDrive;
-import dev.latvian.mods.kubejs.item.ItemBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
-
+/*
 public class InfinityDriveBuilder extends ItemBuilder {
 
     private ItemStack infinityStack;
@@ -36,3 +34,5 @@ public class InfinityDriveBuilder extends ItemBuilder {
         return new InfinityDrive(createItemProperties(), infinityContent);
     }
 }
+
+ */
