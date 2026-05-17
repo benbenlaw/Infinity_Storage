@@ -20,7 +20,7 @@ public class ISBlocks {
     public static final DeferredBlock<Block> INFINITY_STORAGE_DRIVE = registerBlock("infinity_storage_drive",
             properties -> new InfinityStorageDriveBlock(properties
                     .strength(1.0F)
-                    .noCollision()));
+                    .noOcclusion()));
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {

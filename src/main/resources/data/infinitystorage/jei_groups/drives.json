@@ -1,0 +1,15 @@
+{
+  "name": "Infinity Storage Drives",
+  "icon": {
+    "id": "infinitystorage:infinity_cobblestone_drive"
+  },
+  "items": [
+    "infinitystorage:infinity_cobblestone_drive",
+    "infinitystorage:infinity_water_drive",
+    "infinitystorage:infinity_lava_drive",
+    "infinitystorage:infinity_dirt_drive",
+    "infinitystorage:infinity_gravel_drive",
+    "infinitystorage:infinity_sand_drive",
+    "infinitystorage:infinity_stone_drive"
+  ]
+}

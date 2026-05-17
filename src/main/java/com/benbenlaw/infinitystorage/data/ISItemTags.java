@@ -1,6 +1,8 @@
 package com.benbenlaw.infinitystorage.data;
 
 import com.benbenlaw.infinitystorage.InfinityStorage;
+import com.benbenlaw.infinitystorage.item.ISItems;
+import com.benbenlaw.infinitystorage.util.ISTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
@@ -17,6 +19,15 @@ public class ISItemTags extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
 
+        tag(ISTags.Items.DRIVES).add(
+                ISItems.INFINITY_COBBLESTONE_DRIVE.get(),
+                ISItems.INFINITY_SAND_DRIVE.get(),
+                ISItems.INFINITY_LAVA_DRIVE.get(),
+                ISItems.INFINITY_WATER_DRIVE.get(),
+                ISItems.INFINITY_STONE_DRIVE.get(),
+                ISItems.INFINITY_GRAVEL_DRIVE.get(),
+                ISItems.INFINITY_DIRT_DRIVE.get()
+        );
 
     }
 
