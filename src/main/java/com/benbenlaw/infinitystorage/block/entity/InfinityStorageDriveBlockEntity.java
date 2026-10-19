@@ -60,6 +60,13 @@ public class InfinityStorageDriveBlockEntity extends SyncableBlockEntity impleme
     public void tick() {
 
     }
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.invalidateCapabilities(worldPosition);
+        }
+    }
 
     public ItemStacksResourceHandler getItemHandler() {
         SyncableItemHandler driveHandler = new SyncableItemHandler(this, 8,
